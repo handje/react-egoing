@@ -10,4 +10,4 @@
 #css1
 #1.flexbox 이용하여 수직축, center배열
 
-![스크린샷(221)](https://user-images.githubusercontent.com/57988006/151650432-bcc51e19-bdcd-46fd-86e4-72765a964a97.png)
+![캡처](https://user-images.githubusercontent.com/57988006/151650466-3b4e0c8c-e411-4d91-b77d-761f358d6f01.PNG)
