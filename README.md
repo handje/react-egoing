@@ -123,3 +123,36 @@ const Sub1 = () => {
 
 //sub1은 gray, sub2는 red테두리를 가진다(부모중 가장 먼저 등장하는 provider의 value를 가짐)
 ```
+
+# useReducer
+
+useState와 결과는 같지만 동작 방식이 다름,
+useState는 직접 값을 바꾸지만 useReducer은 명령의 이름을 전달 => 사용하는 부분에서 간단하게 처리 가능
+
+```js
+//코드 일부분
+import { useReducer, useState } from "react";
+
+const Reducer = () => {
+  const countReducer = (oldCount, action) => {
+    if (action.type === "UP") {
+      return oldCount + action.number;
+    } //number값을 직접 다루는 것이 아닌 props로 받아서 사용하는것이 좋음
+  };
+  const DOWN = () => countDispatch({ type: "DOWN", number: number });
+
+  const [count, countDispatch] = useReducer(countReducer, 0); //(function,default)
+
+  const [number, setNumber] = useState(1);
+  const changeNumber = (event) => {
+    setNumber(Number(event.target.value));
+  };
+
+  return (
+    <>
+      <input type="button" value="-" onClick={DOWN} />
+      <input type="text" value={number} onChange={changeNumber} />
+    </>
+  );
+};
+```
