@@ -84,3 +84,42 @@ const params = useParams();
   });
 }
 ```
+
+# Context API
+
+전역적으로 상태를 컴포넌트간에 공유할 수 있도록 도와주는 도구
+=> 너무 깊숙한 위치에 데이터를 전달해야할때는 props가 불편하기 때문에
+
+```js
+import { createContext, useContext } from "react";
+import "./style.css";
+
+const themeDefault = { border: "10px solid green" }; //전역변수
+const themeContext = createContext(themeDefault); //themeDefault는 기본값을 설정해주는 것
+
+const BoxContext = () => {
+  const theme = useContext(themeContext);
+  return (
+    <themeContext.Provider value={{ border: "10px solid gray" }}>
+      <div className="box" style={theme}>
+        <h1>Hello World!</h1>
+        <Sub1 />
+      </div>
+    </themeContext.Provider>
+  );
+};
+
+const Sub1 = () => {
+  const theme = useContext(themeContext);
+  return (
+    <themeContext.Provider value={{ border: "10px solid red" }}>
+      <div style={theme}>
+        <h1>Sub1</h1>
+        <Sub2 />
+      </div>
+    </themeContext.Provider>
+  );
+};
+
+//sub1은 gray, sub2는 red테두리를 가진다(부모중 가장 먼저 등장하는 provider의 value를 가짐)
+```
