@@ -1,7 +1,8 @@
-import Nav from "./Nav";
+import Nav from "./Router/Nav";
 import BoxContext from "./BoxContext";
 import Reducer from "./Reducer";
 import ReduxEx from "./ReduxEx";
+import ReduxExToolKit from "./ReduxToolkit/ReduxToolKit";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
       <hr />
       <h3>Redux example</h3>
       <ReduxEx />
+      <hr />
+      <h3>ReduxToolKit example</h3>
+      <ReduxExToolKit />
     </div>
   );
 }

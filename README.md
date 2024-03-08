@@ -237,3 +237,77 @@ const reducer = (currentState, action) => {
 
 => state를 사용하는 number값만 바뀌고 그 부모는 다시 렌더링이 되지 않음
 state가 바껴도 left3만 실행되고 left2는 실행 x
+
+# Redux Toolkit
+
+- 리덕스의 단점
+
+1. 설정이 많다
+2. 미들웨어 설치
+3. 반복되는 코드 (action을 디스패치할때 action,create등을 항상 코딩해야함)
+4. 불변성을 유지해야하는데 순서자바스크립트로는 어려운점이 많음
+   => 리덕스 툴킷 등장
+   npm install @reduxjs/toolkit
+
+- slice=store를 작게 나눠서 기능별로 만든 저장소
+
+1. slice생성(객체)
+
+1) name설정
+2) 초기값 설정
+3) reducers생성 : 복수형, 기존의 state/action을 인자로 받는것은 동일, state를 복사하여 변경하는 과정 생략
+
+```js
+const counterSlice = createSlice({
+  name: "counterSlice",
+  initialState: { value: 0 },
+  reducers: {
+    up: (state, action) => {
+      state.value = state.value + action.step;
+    },
+  },
+});
+```
+
+2. slice들을 합쳐서 하나의 스토어로 만들기
+
+- reducer를 전달(s없음)
+
+```js
+const store = configureStore({
+  reducer: { counter: counterSlice.reducer },
+});
+```
+
+3. store값 사용 방법
+
+1)
+
+```js
+const count = useSelector((state) => state.counter.value); //store에 정의한 counter객체의 값으로 넘어옴
+<button
+        onClick={() => {
+          dispatch({ type: "counterSlice/up", step: 2 }); //slice의 이름과 reducers안에 정의한 이름으로 타입 정의
+        }}>
+```
+
+2. 리덕스 툴킷은 리듀스 함수들을 참고하여 자동으로 액션을 만들어내는 액션 크리에이터를 생성해줌
+
+```js
+const counterSlice = createSlice({
+  name: "counterSlice",
+  initialState: { value: 0 },
+  reducers: {
+    up: (state, action) => {
+      state.value = state.value + action.payload; //action.step대신
+    },
+  },
+});
+
+<button
+        onClick={() => {
+          dispatch(counterSlice.actions.up(2)); //
+        }}>
+```
+
+=> 보통 store, slice, main 이렇게 분리하여 관리
