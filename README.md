@@ -156,3 +156,84 @@ const Reducer = () => {
   );
 };
 ```
+
+# React-Redux
+
+- npm install redux react-redux
+
+1. store
+
+```js
+import { legacy_createStore as createStore } from "redux"; //createStore deprecated 문제 o
+
+const store = createStore(reducer); //store은 수정 불가능, reducer를 꼭 전달
+```
+
+2. reduce
+
+- store를 어떻게 바꿀 것인지 결정하느 역할
+- props: 현재값, 요청
+- return값이 새로운 state값이 됨
+
+```js
+const reducer = (currentState, action) => {
+  if (currentState === undefined) {
+    //state초기값(기본값)
+    return {
+      number: 1,
+    };
+  }
+  const newState = { ...currentState }; //state의 변화를 불변하게 유지하기위해 복제하여 수정
+  return newState;
+};
+```
+
+3. Provider
+
+- state를 어떤 컴포넌트들에게 제공할 것인지 정하는 역할
+- store을 정의해야 오류x
+
+```js
+//Provider태그 안에 컴포넌트들은 Store을 사용할 수 있음
+<Provider store={store}>
+  <Left1></Left1>
+  <Right1></Right1>
+</Provider>
+```
+
+4. useSelector()
+
+- 스토어에 있는값에 접근할수 있도록함
+- 함수를 인자로 받음
+
+```js
+const number = useSelector((state) => state.number);
+```
+
+5. useDispatch()
+
+- 액션을 전달해서 state값을 변경하도록 도와주는 함수
+- 실행하면 reducer를 호출함
+
+```js
+const reducer = (currentState, action) => {
+  if (currentState === undefined) {
+    return {
+      number: 1,
+    };
+  }
+  const newState = { ...currentState };
+  if(action.type==="PLUS"){
+    newState.number++;
+  }
+  return newState;
+};
+//...
+  const dispatch = useDispatch();
+  onClick={() => {
+          dispatch({ type: "PLUS" });
+        }}
+```
+
+=> state를 사용하는 number값만 바뀌고 그 부모는 다시 렌더링이 되지 않음
+state가 바껴도 left3만 실행되고 left2는 실행 x

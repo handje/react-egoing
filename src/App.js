@@ -1,6 +1,7 @@
 import Nav from "./Nav";
 import BoxContext from "./BoxContext";
 import Reducer from "./Reducer";
+import ReduxEx from "./ReduxEx";
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
       <hr />
       <h3>useReducer example</h3>
       <Reducer />
+      <hr />
+      <h3>Redux example</h3>
+      <ReduxEx />
     </div>
   );
 }
